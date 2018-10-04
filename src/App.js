@@ -23,7 +23,7 @@ class BooksApp extends React.Component {
       <BrowserRouter>
         <Switch>
           <Route path="/" render={() => <BookShelvesScreen books={books} />} exact />
-          <Route path="/search" component={SearchScreen} exact />
+          <Route path="/search" render={() => <SearchScreen books={books} />} exact />
           <Redirect to="/" />
         </Switch>
       </BrowserRouter>
