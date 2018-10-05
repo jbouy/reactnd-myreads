@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
-import BookList from './BookList';
+import * as BooksAPI from '../util/BooksAPI';
+import BookList from '../components/BookList';
 
 class SearchScreen extends Component {
   state = {

@@ -1,9 +1,9 @@
 import React from 'react';
 import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom';
-import * as BooksAPI from './BooksAPI';
+import * as BooksAPI from './util/BooksAPI';
 import './App.css';
-import BookShelvesScreen from './BookShelvesScreen';
-import SearchScreen from './SearchScreen';
+import BookShelvesScreen from './screens/BookShelvesScreen';
+import SearchScreen from './screens/SearchScreen';
 
 class BooksApp extends React.Component {
   state = {
