@@ -19,18 +19,39 @@ class SearchScreen extends Component {
     );
   };
 
-  searchBooks = query => {
-    // TODO: Link bookshelf with found books to match on current shelf
-    BooksAPI.search(query).then(books => {
-      const foundBooks = !!books && !books.error ? books : [];
+  onBookShelfChange = book => {
+    this.props.onBookShelfChange(book);
+    this.mapShelfToFound(this.state.foundBooks);
+  };
 
-      this.setState({
-        foundBooks,
-      });
+  searchBooks = query => {
+    BooksAPI.search(query).then(result => {
+      const found = !!result && !result.error ? result : [];
+      this.mapShelfToFound(found);
+    });
+  };
+
+  mapShelfToFound = found => {
+    const shelf = this.props.books.reduce((obj, item) => {
+      obj[item.id] = item;
+      return obj;
+    }, {});
+
+    console.log(shelf);
+
+    this.setState({
+      foundBooks: found.map(book => {
+        const bookOnShelf = shelf[book.id];
+        const currentShelf = !!bookOnShelf ? bookOnShelf.shelf : 'none';
+
+        return {...book, shelf: currentShelf};
+      }),
     });
   };
 
   render() {
+    console.log(this.state.foundBooks);
+
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -47,7 +68,7 @@ class SearchScreen extends Component {
         </div>
 
         <div className="search-books-results">
-          <BookList books={this.state.foundBooks} />
+          <BookList books={this.state.foundBooks} onBookShelfChange={this.onBookShelfChange} />
         </div>
       </div>
     );
@@ -56,6 +77,7 @@ class SearchScreen extends Component {
 
 SearchScreen.propTypes = {
   books: PropTypes.array,
+  onBookShelfChange: PropTypes.func,
 };
 
 export default SearchScreen;

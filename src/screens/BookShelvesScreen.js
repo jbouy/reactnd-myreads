@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import BookShelf from '../components/BookShelf';
+import Shelves from '../shelves';
 
 const BookShelvesScreen = props => {
-  const {books} = props;
+  const {books, ...rest} = props;
 
   return (
     <div>
@@ -14,9 +15,10 @@ const BookShelvesScreen = props => {
         </div>
 
         <div className="list-books-content">
-          <BookShelf title={'Currently Reading'} shelf="currentlyReading" books={books} />
-          <BookShelf title={'Want to Read'} shelf="wantToRead" books={books} />
-          <BookShelf title={'Read'} shelf="read" books={books} />
+          {Object.keys(Shelves).map(key => {
+            const title = Shelves[key];
+            return <BookShelf key={key} title={title} shelf={key} books={books} {...rest} />;
+          })}
         </div>
       </div>
 

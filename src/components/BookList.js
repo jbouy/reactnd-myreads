@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Book from './Book';
 
 const BookList = props => {
-  const {books = []} = props;
+  const {books = [], ...rest} = props;
 
   return (
     <ol className="books-grid">
       {books.map(book => (
-        <Book key={book.id} book={book} />
+        <Book key={book.id} book={book} {...rest} />
       ))}
     </ol>
   );

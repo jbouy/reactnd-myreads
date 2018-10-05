@@ -4,10 +4,9 @@ import BookShelfChanger from './BookShelfChanger';
 
 class Book extends Component {
   render() {
-    const {book} = this.props;
+    const {book, onBookShelfChange} = this.props;
     const {imageLinks} = book;
 
-    // TODO: setup current shelf options
     return (
       <li>
         <div className="book">
@@ -22,7 +21,7 @@ class Book extends Component {
                 }}
               />
             )}
-            <BookShelfChanger book={book} />
+            <BookShelfChanger book={book} onBookShelfChange={onBookShelfChange} />
           </div>
           <div className="book-title">{book.title}</div>
           <div className="book-authors">
@@ -35,7 +34,8 @@ class Book extends Component {
 }
 
 Book.propTypes = {
-  book: PropTypes.object,
+  book: PropTypes.object.isRequired,
+  onBookShelfChange: PropTypes.func,
 };
 
 export default Book;
